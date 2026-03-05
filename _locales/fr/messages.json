@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "SwissGPT Guard"
+  },
+  "extDesc": {
+    "message": "Extension de confidentialité pour les entreprises suisses qui détecte et anonymise localement les données sensibles dans le navigateur (conforme à la LPD)."
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "SwissAI Guard"
+  },
+  "extDesc": {
+    "message": "Datenschutz-Add-on für Schweizer Unternehmen, das lokal im Browser sensible Daten (DSG-konform) erkennt und anonymisiert."
+  }
+}

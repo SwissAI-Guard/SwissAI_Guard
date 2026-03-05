@@ -1,0 +1,8 @@
+{
+  "extName": {
+    "message": "SwissAI Guard"
+  },
+  "extDesc": {
+    "message": "Privacy add-on for Swiss companies that locally detects and anonymizes sensitive data in the browser (nDSG-compliant)."
+  }
+}
