@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SwissAI Guard - Einstellungen</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      margin: 0;
+      color: #003366;
+      font-size: 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #444;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #666;
+    }
+    .input-group {
+      display: flex;
+      margin-top: 15px;
+    }
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      font-size: 14px;
+    }
+    button {
+      background-color: #003366;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 0 4px 4px 0;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #002244;
+    }
+    .domain-list {
+      margin-top: 20px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .domain-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      background-color: #fafafa;
+    }
+    .domain-item:last-child {
+      border-bottom: none;
+    }
+    .domain-item .remove-btn {
+      background-color: #ff4d4f;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    .domain-item .remove-btn:hover {
+      background-color: #d9363e;
+    }
+    .status-msg {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #4CAF50;
+      display: none;
+    }
+    .badge {
+      display: inline-block;
+      background-color: #e6f7ff;
+      color: #1890ff;
+      border: 1px solid #91d5ff;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 data-i18n="optionsHeader"><img src="../assets/icon48.png" alt="Logo" style="width: 28px; height: 28px; margin-right: 12px; vertical-align: text-bottom;">SwissAI Guard</h1>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="optionsSecurityTitle">Sicherheits-Modus</h2>
+    <p data-i18n="optionsSecurityDesc">Wählen Sie, wie streng der SwissAI Guard auf nicht-autorisierten KI-Seiten reagieren soll.</p>
+    
+    <div style="margin-top: 15px;">
+      <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+        <input type="radio" name="security-mode" value="filter" checked>
+        <strong data-i18n="optionsModeFilterTitle">🛡️ Berater-Modus (Standard)</strong><br>
+        <span style="font-size: 13px; color: #666; margin-left: 25px; display: block;" data-i18n="optionsModeFilterDesc">Erlaubt die Nutzung aller KI-Tools, filtert aber sensible Daten (AHV, IBAN, etc.) vor dem Senden heraus.</span>
+      </label>
+      
+      <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+        <input type="radio" name="security-mode" value="block">
+        <strong data-i18n="optionsModeBlockTitle">⛔ Festungs-Modus (Strict)</strong><br>
+        <span style="font-size: 13px; color: #666; margin-left: 25px; display: block;" data-i18n="optionsModeBlockDesc">Blockiert den Zugriff auf alle KI-Tools komplett, es sei denn, sie stehen auf der Whitelist unten. Ideal zur Verhinderung von Schatten-IT.</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="optionsWhitelistTitle">Sichere Firmen-Umgebungen (Whitelisting)</h2>
+    <p data-i18n="optionsWhitelistDesc">
+      Tragen Sie hier die URLs Ihrer internen KI-Tools oder Enterprise-Accounts ein (z.B. <strong>chatgpt.com/enterprise</strong> oder <strong>ai.ihrefirma.ch</strong>). 
+      <br><br>
+      <strong>Wie es funktioniert:</strong><br>
+      Auf diesen "sicheren" Seiten wird der SwissAI Guard <strong>deaktiviert</strong>, da ein Auftragsverarbeitungsvertrag (DPA) vorliegt. Auf allen anderen öffentlichen KI-Seiten bleibt der strenge Filter aktiv.
+    </p>
+
+    <div class="input-group">
+      <input type="text" id="domain-input" placeholder="z.B. chatgpt.com/enterprise oder ai.firma.ch" data-i18n="optionsWhitelistPlaceholder">
+      <button id="add-btn" data-i18n="optionsWhitelistAdd">Hinzufügen</button>
+    </div>
+    <div id="status-msg" class="status-msg" data-i18n="optionsSaved">Domain erfolgreich gespeichert!</div>
+
+    <div class="domain-list" id="domain-list">
+      <!-- Domains will be injected here -->
+    </div>
+  </div>
+
+  <script src="../utils/i18n.js"></script>
+  <script src="../utils/i18n_html.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

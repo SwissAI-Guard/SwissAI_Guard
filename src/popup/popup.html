@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SwissAI Guard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: 250px;
+      padding: 15px;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 16px;
+      color: #003366;
+      display: flex;
+      align-items: center;
+    }
+    .status-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 15px;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    /* Toggle Switch */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 20px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #4CAF50;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .footer {
+      margin-top: 15px;
+      font-size: 11px;
+      text-align: center;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h2><img src="../assets/icon48.png" alt="Logo" style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;"> SwissAI Guard</h2>
+  <p style="font-size: 12px; margin-bottom: 0;" data-i18n="popupSubtitle">Lokal. Sicher. DSG-konform.</p>
+  
+  <div class="status-container">
+    <span id="status-text" data-i18n="popupStatusActive">Schutz aktiv</span>
+    <label class="switch">
+      <input type="checkbox" id="toggle-switch" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="stats-container" style="margin-top: 15px; padding: 10px; background: white; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); font-size: 12px;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+      <strong style="color: #4CAF50;">Heute geschützt:</strong>
+      <span id="stat-today" style="font-weight: bold;">0</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; color: #666;">
+      <span data-i18n="popupTotalProtected">Total maskiert:</span>
+      <span id="stat-total">0</span>
+    </div>
+  </div>
+
+  <div style="margin-top: 15px; text-align: center;">
+    <button id="options-btn" style="background: none; border: 1px solid #ccc; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; color: #555;" data-i18n="popupManageWhitelist">⚙️ Whitelist verwalten</button>
+  </div>
+
+  <div class="footer" data-i18n="popupFooter">
+    100% lokale Verarbeitung
+  </div>
+
+  <script src="../utils/i18n.js"></script>
+  <script src="../utils/i18n_html.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
