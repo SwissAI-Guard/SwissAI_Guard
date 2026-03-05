@@ -1,0 +1,15 @@
+{
+  "name": "swissgpt-guard",
+  "version": "1.0.0",
+  "description": "Datenschutz-Add-on für Schweizer Unternehmen",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "compromise": "^14.14.5",
+    "de-compromise": "^0.0.10"
+  }
+}
